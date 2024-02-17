@@ -1,5 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+let currentIndexValue = 0;
+
 
 // Path to the SQLite database file
 const dbPath = path.resolve(__dirname, 'db/user.db');
@@ -13,6 +15,9 @@ let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREA
         createUsersTable(); // Call function to create users table
     }
 });
+
+
+
 
 // Function to create the users table if it doesn't exist
 function createUsersTable() {
@@ -32,12 +37,19 @@ function createUsersTable() {
             console.error('Error creating users table:', err.message);
         } else {
             console.log('Users table created or already exists.');
+            // Retrieve the index value when the table is created
+            getIndexValue();
         }
     });
 }
 
 // Function to insert values into the users table
 function insertUser(id, username, email, password, weight, height, age, goal) {
+    // If id is not provided, use the currentIndexValue to auto-increment
+    if (!id) {
+        id = ++currentIndexValue;
+    }
+
     const query = `INSERT INTO users (id, username, email, password, weight, height, age, goal) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     db.run(query, [id, username, email, password, weight, height, age, goal], function (err) {
@@ -45,6 +57,20 @@ function insertUser(id, username, email, password, weight, height, age, goal) {
             console.error('Error inserting user:', err.message);
         } else {
             console.log(`A row has been inserted with rowid ${this.lastID}`);
+        }
+    });
+}
+
+// Function to get the current index value
+function getIndexValue() {
+    const query = `SELECT MAX(id) AS maxId FROM users`;
+    db.get(query, [], (err, row) => {
+        if (err) {
+            console.error('Error getting index value:', err.message);
+        } else {
+            // Update the currentIndexValue
+            currentIndexValue = row.maxId || 0;
+            console.log('Current index value:', currentIndexValue);
         }
     });
 }
@@ -145,8 +171,18 @@ function updateGoal(userId, newGoal) {
         }
     });
 }
+function printDataTable() {
+    const query = `SELECT * FROM users`;
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error('Error fetching data:', err.message);
+        } else {
+            console.log('Data Table:');
+            console.table(rows);
+        }
+    });
+}
+insertUser(null, "test", "test@gtmail.com", "123test", 1234, 87, 14, 2);
+printDataTable();
+module.exports = { insertUser, updateWeight, updateHeight, updateAge, updateEmail, updatePassword, updateUsername, updateGoal, db, getIndexValue };
 
-module.exports = { insertUser, updateWeight, updateHeight, updateAge, updateEmail, updatePassword, updateUsername, updateGoal, db };
-
-
-module.exports = { insertUser, db }; // Exporting the insertUser function and the database connection
