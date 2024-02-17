@@ -136,6 +136,17 @@
       height: 50vh;
       font-size: 1.6rem;
     }
+
+    #bar {
+      width: 100%;
+      background-color: grey;
+    }
+    
+    #progress {
+      width: 1%;
+      height: 30px;
+      background-color: green;
+    }
   
     #navbar__logo {
       padding-left: 25px;
@@ -446,7 +457,40 @@
     left: 30px;
     font-size: 1rem;
   }
-  
+
+
+  form {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
   .services__card button:hover {
     cursor: pointer;
   }
