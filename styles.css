@@ -305,14 +305,14 @@
   }
   
   .main__img--container {
-    text-align: center;
+    text-align: left;
   }
   
   #main__img {
     height: 80%;
     width: 80%;
     border-radius: 5px;
-    box-shadow: 5px 5px 15px 15px rgb(40, 40, 40);
+    box-shadow: 3px 3px 15px 15px rgb(40, 40, 40);
   }
   
   /* Mobile Responsive */
@@ -525,7 +525,18 @@
       width: 300px;
     }
   }
+  .logo__img {
+    text-align: center;
+  }
   
+  #logo__img {
+    height: 70%;
+    width: 60%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px 15px rgb(40, 40, 40);
+  }
+  
+
   /* Footer CSS */
   .footer__container {
     background-color: #141414;
