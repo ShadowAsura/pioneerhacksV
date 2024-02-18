@@ -1,13 +1,14 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+import sqlite3 from 'sqlite3';
+import path from 'path';
+const { verbose } = sqlite3;
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 let currentIndexValue = 0;
-
 
 // Path to the SQLite database file
 const dbPath = path.resolve(__dirname, 'db/user.db');
 
 // Open the database
-let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error(err.message);
     } else {
@@ -15,9 +16,6 @@ let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREA
         createUsersTable(); // Call function to create users table
     }
 });
-
-
-
 
 // Function to create the users table if it doesn't exist
 function createUsersTable() {
@@ -44,17 +42,18 @@ function createUsersTable() {
 }
 
 // Function to insert values into the users table
-function insertUser(id, username, email, password, weight, height, age, goal) {
+export const insertUser = (id, username, email, password, weight, height, age, goal) => {
     // If id is not provided, use the currentIndexValue to auto-increment
     if (!id) {
-        id = this.lastID + 1;
+        id = ++currentIndexValue;
     }
 
     const query = `INSERT INTO users (id, username, email, password, weight, height, age, goal) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     db.run(query, [id, username, email, password, weight, height, age, goal], function (err) {
         if (err) {
-            console.error('Error inserting user:', err.message);
+            id = ++currentIndexValue;
+            insertUser(id, username, email, password, weight, height, age, goal);
         } else {
             console.log(`A row has been inserted with rowid ${this.lastID}`);
             currentIndexValue = this.lastID;
@@ -173,6 +172,7 @@ function updateGoal(userId, newGoal) {
         }
     });
 }
+
 function printDataTable() {
     const query = `SELECT * FROM users`;
     db.all(query, [], (err, rows) => {
@@ -185,4 +185,4 @@ function printDataTable() {
     });
 }
 
-module.exports = { insertUser, updateWeight, updateHeight, updateAge, updateEmail, updatePassword, updateUsername, updateGoal, db, getIndexValue, printDataTable };
+export { updateWeight, updateHeight, updateAge, updateEmail, updatePassword, updateUsername, updateGoal, db, getIndexValue, printDataTable };
