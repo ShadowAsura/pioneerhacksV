@@ -27,18 +27,20 @@ document.getElementById('sendMessageBtn').addEventListener('click', async functi
     displayMessage('user', message); // Display the user's message
     userInput.value = ''; // Clear input
 
-    // Fetch AI response
-    const response = await fetch('http://localhost:3000/getAIResponse', {
+    console.log("Sending message to server:", message); // Log the message being sent
+
+    const response = await fetch('api/getAIResponse', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ message: message }),
-    })
+    });
 
 
     if (response.ok) {
       const data = await response.json();
+      console.log("Received reply from server:", data.reply); // Log the reply
       displayMessage('ai', data.reply); // Display the AI's response
     } else {
       console.error('Failed to get AI response');
