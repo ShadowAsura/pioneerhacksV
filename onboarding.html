@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>HTML CSS Website</title>
-        <link rel="stylesheet" href="styles.css" />
-        <link
-          rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-          crossorigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
-        <nav class="navbar">
-            <div class="navbar__container">
-              <a href="/" id="navbar__logo"><i class="fas fa-gem"></i>FFTA</a>
-              <div class="navbar__toggle" id="mobile-menu">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML CSS Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo"><i class="fas fa-gem"></i>FFTA</a>
+            <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span> <span class="bar"></span>
                 <span class="bar"></span>
-              </div>
-              <ul class="navbar__menu">
+            </div>
+            <ul class="navbar__menu">
                 <li class="navbar__item">
-                  <a href="/" class="navbar__links">Home</a>
+                    <a href="/" class="navbar__links">Home</a>
                 </li>
                 <li class="navbar__item">
-                  <a href="/Login" class="navbar__links">Login</a>
+                    <a href="/Login" class="navbar__links">Login</a>
                 </li>
                 <li class="navbar__item">
-                  <a href="/products" class="navbar__links">Products</a>
+                    <a href="/products" class="navbar__links">Products</a>
                 </li>
                 <li class="navbar__btn">
-                  <a href="/sign-up" class="button">Sign Up</a>
+                    <a href="/sign-up" class="button">Sign Up</a>
                 </li>
-              </ul>
-            </div>
-          </nav>
-        <div class="main">
-            <div class="main__container">
-                <div class="main__content">
-                    <h1>Onboarding</h1>
-                    <form action="#" method="post">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    
-                        <label for="weight">Weight:</label>
-                        <input type="number" id="weight" name="weight" required>
-                    
-                        <label for="age">Age:</label>
-                        <input type="number" id="age" name="age" required>
-                    
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
+            </ul>
+        </div>
+    </nav>
+    <button id="openChatBtn">Open Chat</button>
+
+    <div id="chatContainer">
+        <div id="chatHeader">
+            <span id="closeChatBtn">&times;</span>
+        </div>
+        <div id="chatBody">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div id="chatInput">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button id="sendMessageBtn">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <div class="main">
+        <div class="main__container">
+            <div class="main__content">
+                <h1>Onboarding</h1>
+                <form action="#" method="post">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="weight">Weight:</label>
+                    <input type="number" id="weight" name="weight" required>
+
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </div>
-      </body>
+    </div>
+</body>
