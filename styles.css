@@ -486,15 +486,38 @@
     font-size: 16px;
     cursor: pointer;
   }
-  
-  #chatContainer {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    border: 1px solid #ccc;
-  }
+
+#chatContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+#chatBody {
+  height: 200px;
+  overflow-y: auto;
+}
+
+.user, .ai {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.user {
+  background-color: #f1f1f1;
+  align-self: flex-end;
+}
+
+.ai {
+  background-color: #ddd;
+  align-self: flex-start;
+}
+
   
   #chatHeader {
     background-color: #f1f1f1;
@@ -506,12 +529,7 @@
   #closeChatBtn {
     font-size: 20px;
   }
-  
-  #chatBody {
-    padding: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-  }
+
   
   #chatInput {
     padding: 10px;

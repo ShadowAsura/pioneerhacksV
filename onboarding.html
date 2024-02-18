@@ -35,20 +35,14 @@
             </ul>
         </div>
     </nav>
+    <div id="chatContainer" style="display:none;">
+        <button id="closeChatBtn">Close Chat</button>
+        <div id="chatBody"></div>
+        <input type="text" id="userInput" />
+        <button id="sendMessageBtn">Send</button>
+    </div>
     <button id="openChatBtn">Open Chat</button>
 
-    <div id="chatContainer">
-        <div id="chatHeader">
-            <span id="closeChatBtn">&times;</span>
-        </div>
-        <div id="chatBody">
-            <!-- Chat messages will be displayed here -->
-        </div>
-        <div id="chatInput">
-            <input type="text" id="userInput" placeholder="Type your message...">
-            <button id="sendMessageBtn">Send</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 
