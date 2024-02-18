@@ -478,7 +478,75 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+  #openChatBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
 
+#chatContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+#chatBody {
+  height: 200px;
+  overflow-y: auto;
+}
+
+.user, .ai {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.user {
+  background-color: #f1f1f1;
+  align-self: flex-end;
+}
+
+.ai {
+  background-color: #ddd;
+  align-self: flex-start;
+}
+
+  
+  #chatHeader {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: right;
+    cursor: pointer;
+  }
+  
+  #closeChatBtn {
+    font-size: 20px;
+  }
+
+  
+  #chatInput {
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  #userInput {
+    width: 70%;
+    padding: 8px;
+    margin-right: 5px;
+  }
+  
+  #sendMessageBtn {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
   button {
     background-color: #4caf50;
     color: #fff;
