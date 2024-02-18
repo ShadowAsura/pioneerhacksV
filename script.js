@@ -6,26 +6,7 @@ document.getElementById('openChatBtn').addEventListener('click', function() {
     document.getElementById('chatContainer').style.display = 'none';
   });
   
-  document.getElementById('sendMessageBtn').addEventListener('click', function() {
-    // Get user input
-    var userInput = document.getElementById('userInput').value;
-  
-    if (userInput.trim() !== '') {
-      // Display user message in the chat body
-      displayMessage('user', userInput);
-  
-      // Handle the AI response (you can replace this with your actual chatbot logic)
-      var aiResponse = "This is a sample AI response.";
-  
-      // Display AI response in the chat body after a short delay (simulating AI processing time)
-      setTimeout(function() {
-        displayMessage('ai', aiResponse);
-      }, 500);
-  
-      // Clear the user input field
-      document.getElementById('userInput').value = '';
-    }
-  });
+
   
   // Function to display messages in the chat body
   function displayMessage(sender, message) {
@@ -38,4 +19,29 @@ document.getElementById('openChatBtn').addEventListener('click', function() {
     // Scroll to the bottom of the chat body
     chatBody.scrollTop = chatBody.scrollHeight;
   }
-  
+// Assuming sendMessageBtn and userInput are already defined
+document.getElementById('sendMessageBtn').addEventListener('click', async function() {
+  const userInput = document.getElementById('userInput');
+  const message = userInput.value.trim();
+  if (message !== '') {
+    displayMessage('user', message); // Display the user's message
+    userInput.value = ''; // Clear input
+
+    // Fetch AI response
+    const response = await fetch('http://localhost:3000/getAIResponse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: message }),
+    })
+
+
+    if (response.ok) {
+      const data = await response.json();
+      displayMessage('ai', data.reply); // Display the AI's response
+    } else {
+      console.error('Failed to get AI response');
+    }
+  }
+});
