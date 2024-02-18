@@ -19,7 +19,7 @@ app.use(express.json());
 
 // OpenAI API setup
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Endpoint to handle chat messages
