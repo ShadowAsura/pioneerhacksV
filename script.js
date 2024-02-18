@@ -45,3 +45,38 @@ document.getElementById('sendMessageBtn').addEventListener('click', async functi
     }
   }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('signup-form');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Collect form data
+        const formData = {
+            email: document.getElementById('email').value,
+            planDuration: document.getElementById('password').value,
+            budget: document.getElementById('name').value,
+            healthIssues: document.getElementById('weight').value,
+            comments: document.getElementById('age').value
+        };
+
+        // Send the form data to the server using fetch API
+        fetch('YOUR_API_ENDPOINT', { // Replace YOUR_API_ENDPOINT with your actual endpoint
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            window.location.href = './main1.html'; // Redirect after successful submission
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+});
+
