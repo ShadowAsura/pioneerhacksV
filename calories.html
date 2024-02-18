@@ -1,0 +1,376 @@
+<div class="calorie-counter">
+    <div class="calorie-counter__title">Summary</div>
+    <!--  /.calorie-counter__title -->
+    <div class="calorie-counter__date">Sunday Feb 17, 2024</div>
+    <!--  /.calorie-counter__date -->
+    <style>
+        /* Imports */
+        /* No SCSS import required in CSS */
+
+        /* Variables */
+        /* Colors */
+        :root {
+            --color-yellow: #ffb199;
+            --color-green: #ff8177;
+            --color-gray: #4d4d4d;
+            --color-gray-light: #999;
+            --color-black: #070807;
+            --color-blue: #b1fff8;
+            --color-red: #010101;
+            --color-purple: #b584ff;
+        }
+
+        /* Fonts */
+        :root {
+            --font-primary: 'proxima-nova-soft', sans-serif;
+        }
+
+        /* CSS */
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        body {
+            background: linear-gradient(-45deg, var(--color-yellow), var(--color-green));
+        }
+
+        .calorie-counter {
+            background: linear-gradient(to top left, var(--color-gray), #000);
+            animation: load 1s ease-out forwards;
+            transform: translate3d(-50%, -40%, 0);
+            background-color: var(--color-gray);
+            border-radius: 4px;
+            box-shadow: 36px 36px 76px 0px rgba(0, 0, 0, 0.26), 36px 36px 136px 0px rgba(11, 43, 8, 1);
+            color: #fff;
+            height: 640px;
+            font-family: var(--font-primary);
+            font-weight: 500;
+            left: 50%;
+            opacity: 0;
+            padding: 38px 46px;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            width: 400px;
+        }
+
+        .calorie-counter__title {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .calorie-counter__date {
+            font-size: 22px;
+            margin-bottom: 50px;
+        }
+
+        .chart svg {
+            height: 100%;
+            width: 100%;
+        }
+
+        .chart__background {
+            fill: none;
+            height: 100%;
+            position: relative;
+            stroke: #5a5a59;
+            stroke-width: 20px;
+            width: 100%;
+        }
+
+        .chart__foreground {
+            transform: rotate(180deg);
+            transition: stroke-dashoffset 1s ease-in;
+            fill: none;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            stroke-dasharray: 630px;
+            stroke-dashoffset: 630px;
+            stroke-linecap: round;
+            stroke-width: 20px;
+            stroke: var(--color-green);
+            top: 0;
+            width: 100%;
+        }
+
+        .chart__count {
+            color: var(--color-gray-light);
+            font-size: 16px;
+            position: relative;
+        }
+
+        .chart__count div {
+            color: #fff;
+            font-size: 22px;
+        }
+
+        .chart__container {
+            display: inline-block;
+            height: 100%;
+            position: relative;
+            width: 100%;
+        }
+
+        .chart--calorie .chart__container {
+            height: 220px;
+            width: 220px;
+        }
+
+        .chart--calorie .chart__count {
+            top: -135px;
+        }
+
+        .chart--protein,
+        .chart--carbs {
+            float: left;
+            margin-bottom: 50px;
+            text-align: left;
+            width: 50%;
+        }
+
+        .chart--protein .chart__container,
+        .chart--carbs .chart__container {
+            height: 30px;
+            width: 30px;
+        }
+
+        .chart--protein .chart__foreground {
+            stroke: var(--color-blue);
+        }
+
+        .chart--carbs .chart__foreground {
+            stroke: var(--color-red);
+        }
+
+        .chart--protein .chart__count,
+        .chart--carbs .chart__count {
+            color: var(--color-gray-light);
+            display: inline-block;
+            font-size: 14px;
+            padding-left: 10px;
+            position: relative;
+            text-align: left;
+            top: 2px;
+            overflow: hidden;
+        }
+
+        .chart--protein .chart__count div,
+        .chart--carbs .chart__count div {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .calorie__count {
+            background-color: var(--color-purple);
+            padding: 23px;
+        }
+
+        .calorie__count__consumed,
+        .calorie__count__remaining {
+            font-size: 16px;
+        }
+
+        .calorie__count__consumed span,
+        .calorie__count__remaining span {
+            display: block;
+            font-size: 22px;
+        }
+
+        .calorie__count__consumed {
+            overflow: hidden;
+        }
+
+        .calorie__count__remaining {
+            background-color: #fff;
+            box-shadow: 19px 19px 49px 0px rgba(0, 0, 0, 0.36);
+            color: var(--color-gray);
+            float: right;
+            padding: 24px;
+            position: relative;
+            right: -15px;
+            top: -35px;
+            width: 60%;
+        }
+
+        @keyframes load {
+            from {
+                transform: translate3d(-50%, -40%, 0);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate3d(-50%, -50%, 0);
+                opacity: 1;
+            }
+        }
+    </style>
+    <div class="chart chart--calorie js-chart" data-goal="1700" data-count="550">
+        <div class="chart__container">
+
+            <svg class="chart__background" x="0px" y="0px" height="220px" viewBox="0 0 220 220">
+                <g>
+                    <path
+                        d="M110,210c-55.1,0-100-44.9-100-100C10,54.9,54.9,10,110,10s100,44.9,100,100C210,165.1,165.1,210,110,210z" />
+                </g>
+            </svg>
+            <!-- /.cchart__background -->
+
+            <svg class="chart__foreground" x="0px" y="0px" height="220px" viewBox="0 0 220 220">
+                <g>
+                    <path
+                        d="M110,210c-55.1,0-100-44.9-100-100C10,54.9,54.9,10,110,10s100,44.9,100,100C210,165.1,165.1,210,110,210z" />
+                </g>
+            </svg>
+            <!-- /.chart__foreground -->
+
+        </div>
+        <!--  /.chart__container -->
+
+        <div class="chart__count">
+            <div>
+                <span class="js-count" data-count="525">0</span> / <span class="js-count" data-count="1700">0</span>
+            </div>
+            Your goal
+        </div>
+        <!--  /.chart__count -->
+
+    </div>
+    <!-- /.chart .chart--calorie -->
+
+    <div class="chart chart--protein js-chart" data-goal="37" data-count="30">
+        <div class="chart__container">
+
+            <svg class="chart__background" x="0px" y="0px" height="220px" viewBox="0 0 220 220">
+                <g>
+                    <path
+                        d="M110,210c-55.1,0-100-44.9-100-100C10,54.9,54.9,10,110,10s100,44.9,100,100C210,165.1,165.1,210,110,210z" />
+                </g>
+            </svg>
+            <!-- /.chart__background -->
+
+            <svg class="chart__foreground" x="0px" y="0px" height="220px" viewBox="0 0 220 220">
+                <g>
+                    <path
+                        d="M110,210c-55.1,0-100-44.9-100-100C10,54.9,54.9,10,110,10s100,44.9,100,100C210,165.1,165.1,210,110,210z" />
+                </g>
+            </svg>
+            <!-- /.chart__foreground -->
+
+        </div>
+        <!--  /.chart__container -->
+
+        <div class="chart__count .chart__count--protein">
+            <div>
+                <span class="js-count" data-count="30">0</span>g / <span class="js-count" data-count="45">0</span>g
+            </div>
+            Protein
+        </div>
+        <!--  /.chart__count--protein -->
+
+    </div>
+    <!--  /.chart  chart--protein -->
+
+    <div class="chart chart--carbs js-chart" data-goal="120" data-count="35">
+        <div class="chart__container">
+
+            <svg class="chart__background" x="0px" y="0px" height="220px" viewBox="0 0 220 220">
+                <g>
+                    <path
+                        d="M110,210c-55.1,0-100-44.9-100-100C10,54.9,54.9,10,110,10s100,44.9,100,100C210,165.1,165.1,210,110,210z" />
+                </g>
+            </svg>
+            <!-- /.chart__background -->
+
+            <svg class="chart__foreground" x="0px" y="0px" height="220px" viewBox="0 0 220 220">
+                <g>
+                    <path
+                        d="M110,210c-55.1,0-100-44.9-100-100C10,54.9,54.9,10,110,10s100,44.9,100,100C210,165.1,165.1,210,110,210z" />
+                </g>
+            </svg>
+            <!-- /.chart__foreground -->
+
+        </div>
+        <!--  /.chart__container -->
+
+        <div class="chart__count .chart__count--carbs">
+            <div>
+                <span class="js-count" data-count="35">0</span>g / <span class="js-count" data-count="120">0</span>g
+            </div>
+            Carbs
+        </div>
+        <!--  /.chart__count--carbs -->
+
+    </div>
+    <!--  /.chart  chart--carbs -->
+
+    <div class="calorie__count">
+
+        <div class="calorie__count__remaining">
+            <span class="js-count" data-count="1150">0</span>
+            <!-- /.js-count -->
+            Remaining
+        </div>
+        <!--  /.calorie__count__remaining -->
+
+        <div class="calorie__count__consumed">
+            <span class="js-count" data-count="550">0</span>
+            <!-- /.js-count -->
+            Consumed
+        </div>
+        <!--  /.calorie__count__consumed -->
+
+    </div>
+    <!-- /.calorie__count -->
+    <script> (function ($) {
+
+            // Chart Functionality
+            $.fn.setChart = function () {
+                return this.each(function () {
+                    // Variables
+                    var chart = $(this),
+                        path = $('.chart__foreground path', chart),
+                        dashoffset = path.get(0).getTotalLength(),
+                        goal = chart.attr('data-goal'),
+                        consumed = chart.attr('data-count');
+
+                    $('.chart__foreground', chart).css({
+                        'stroke-dashoffset': Math.round(dashoffset - ((dashoffset / goal) * consumed))
+                    });
+                });
+            }; // setChart()
+
+            // Count
+            $.fn.count = function () {
+                return this.each(function () {
+                    $(this).prop('Counter', 0).animate({
+                        Counter: $(this).attr('data-count')
+                    }, {
+                        duration: 1000,
+                        easing: 'swing',
+                        step: function (now) {
+                            $(this).text(Math.ceil(now));
+                        }
+                    });
+                });
+            }; // count()
+
+            $(window).load(function () {
+                $('.js-chart').setChart();
+                $('.js-count').count();
+            });
+
+        })(jQuery);</script>
+</div>
+<!--  /.calorie-counter -->
